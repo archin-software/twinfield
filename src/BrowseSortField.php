@@ -2,21 +2,23 @@
 
 namespace PhpTwinfield;
 
+use PhpTwinfield\Enums\Order;
+
 class BrowseSortField
 {
     /** @var string */
     private $code;
 
-    /** @var string|null */
+    /** @var Order|null */
     private $order;
 
     /**
      * SortField constructor.
      *
      * @param string $code
-     * @param null|string $order
+     * @param null|Order $order
      */
-    public function __construct(string $code, ?string $order = null)
+    public function __construct(string $code, ?Order $order = null)
     {
         $this->code = $code;
         $this->order = $order;
@@ -39,17 +41,17 @@ class BrowseSortField
     }
 
     /**
-     * @return null|string
+     * @return null|Order
      */
-    public function getOrder(): ?string
+    public function getOrder(): ?Order
     {
         return $this->order;
     }
 
     /**
-     * @param null|string $order
+     * @param null|Order $order
      */
-    public function setOrder(?string $order): void
+    public function setOrder(?Order $order): void
     {
         $this->order = $order;
     }

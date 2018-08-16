@@ -75,7 +75,7 @@ class BrowseData extends DOMDocument
         $sortFieldElement = $this->createElement('field', $sortField->getCode());
 
         if ($sortField->getOrder() !== null) {
-            $sortFieldElement->setAttribute('order', $sortField->getOrder());
+            $sortFieldElement->setAttribute('order', $sortField->getOrder()->getValue());
         }
 
         $this->sortElement->appendChild($sortFieldElement);
@@ -106,7 +106,7 @@ class BrowseData extends DOMDocument
         $columnElement->appendChild($this->createElement('label', $column->getLabel()));
         $columnElement->appendChild($this->createElement('visible', Util::formatBoolean($column->isVisible())));
         $columnElement->appendChild($this->createElement('ask', Util::formatBoolean($column->isAsk())));
-        $columnElement->appendChild($this->createElement('operator', $column->getOperator()));
+        $columnElement->appendChild($this->createElement('operator', $column->getOperator()->getValue()));
         $columnElement->appendChild($this->createElement('from', $column->getFrom()));
         $columnElement->appendChild($this->createElement('to', $column->getTo()));
 

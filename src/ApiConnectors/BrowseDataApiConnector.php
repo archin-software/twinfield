@@ -67,7 +67,7 @@ class BrowseDataApiConnector extends BaseApiConnector
      */
     public function getBrowseData(string $code, array $columns, array $sortFields = [])
     {
-        Assert::count($columns, 1);
+        Assert::minCount($columns, 1);
         Assert::allIsInstanceOf($columns, BrowseColumn::class);
         Assert::allIsInstanceOf($sortFields, BrowseSortField::class);
 

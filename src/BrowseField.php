@@ -90,7 +90,7 @@ class BrowseField
     }
 
     /**
-     * @param BrowseFieldOption[] $option
+     * @param BrowseFieldOption $option
      * @return BrowseField
      */
     public function addOption(BrowseFieldOption $option): BrowseField

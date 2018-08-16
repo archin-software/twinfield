@@ -29,18 +29,20 @@ class BrowseDataMapper extends BaseMapper
         $document = $response->getResponseDocument();
         $browseDataElement = $document->documentElement;
 
-        $browseData->setFirst((int)$browseDataElement->getAttribute('first'));
-        $browseData->setLast((int)$browseDataElement->getAttribute('last'));
-        $browseData->setTotal((int)$browseDataElement->getAttribute('total'));
+        $browseData
+            ->setFirst((int)$browseDataElement->getAttribute('first'))
+            ->setLast((int)$browseDataElement->getAttribute('last'))
+            ->setTotal((int)$browseDataElement->getAttribute('total'));
 
         // Get headers
         $headersElement = $browseDataElement->getElementsByTagName('th')[0];
         foreach ($headersElement->getElementsByTagName('td') as $headerElement) {
             $browseDataHeader = new BrowseDataHeader();
-            $browseDataHeader->setLabel($headerElement->getAttribute('label'));
-            $browseDataHeader->setHideForUser(Util::parseBoolean($headerElement->getAttribute('hideforuser')));
-            $browseDataHeader->setType($headerElement->getAttribute('type'));
-            $browseDataHeader->setCode($headerElement->textContent);
+            $browseDataHeader
+                ->setLabel($headerElement->getAttribute('label'))
+                ->setHideForUser(Util::parseBoolean($headerElement->getAttribute('hideforuser')))
+                ->setType($headerElement->getAttribute('type'))
+                ->setCode($headerElement->textContent);
 
             $browseData->addHeader($browseDataHeader);
         }
@@ -52,22 +54,22 @@ class BrowseDataMapper extends BaseMapper
             // Get row key
             $keyElement = $rowElement->getElementsByTagName('key')[0];
 
-            $office = new Office();
-            $office->setCode(self::getField($keyElement, 'office'));
-            $browseDataRow->setOffice($office);
-            $browseDataRow->setCode(self::getField($keyElement, 'code'));
-            $browseDataRow->setNumber(self::getField($keyElement, 'number'));
-            $browseDataRow->setLine(self::getField($keyElement, 'line'));
+            $browseDataRow
+                ->setOffice(Office::fromCode(self::getField($keyElement, 'office')))
+                ->setCode(self::getField($keyElement, 'code'))
+                ->setNumber(self::getField($keyElement, 'number'))
+                ->setLine(self::getField($keyElement, 'line'));
 
             $browseData->addRow($browseDataRow);
 
             // Get cells
             foreach ($rowElement->getElementsByTagName('td') as $cellElement) {
                 $browseDataCell = new BrowseDataCell();
-                $browseDataCell->setField($cellElement->getAttribute('field'));
-                $browseDataCell->setHideForUser(Util::parseBoolean($cellElement->getAttribute('hideforuser')));
-                $browseDataCell->setType($cellElement->getAttribute('type'));
-                $browseDataCell->setValue(
+                $browseDataCell
+                    ->setField($cellElement->getAttribute('field'))
+                    ->setHideForUser(Util::parseBoolean($cellElement->getAttribute('hideforuser')))
+                    ->setType($cellElement->getAttribute('type'))
+                    ->setValue(
                     self::parseBrowseDataValue($browseDataCell->getType(), $cellElement->textContent)
                 );
 
@@ -90,7 +92,7 @@ class BrowseDataMapper extends BaseMapper
     {
         switch ($type) {
             case 'Long':
-                return (int)$value;
+                return $value; // Return a long as a string because casting to an int can cause problems for 32 bit PHP
             case 'Decimal':
             case 'Value':
                 return floatval($value);
@@ -100,7 +102,6 @@ class BrowseDataMapper extends BaseMapper
                 return Util::parseDateTime($value);
             default:
                 return $value;
-
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace PhpTwinfield;
 
+use PhpTwinfield\Enums\BrowseColumnOperator;
+
 class BrowseColumn
 {
     /** @var int */
@@ -19,7 +21,7 @@ class BrowseColumn
     /** @var bool */
     private $ask;
 
-    /** @var string */
+    /** @var BrowseColumnOperator */
     private $operator;
 
     /** @var string|null */
@@ -35,7 +37,7 @@ class BrowseColumn
     {
         $this->visible = false;
         $this->ask = false;
-        $this->operator = 'none';
+        $this->operator = BrowseColumnOperator::NONE();
     }
 
     /**
@@ -129,18 +131,18 @@ class BrowseColumn
     }
 
     /**
-     * @return string
+     * @return BrowseColumnOperator
      */
-    public function getOperator(): string
+    public function getOperator(): BrowseColumnOperator
     {
         return $this->operator;
     }
 
     /**
-     * @param string $operator
+     * @param BrowseColumnOperator $operator
      * @return BrowseColumn
      */
-    public function setOperator(string $operator): BrowseColumn
+    public function setOperator(BrowseColumnOperator $operator): BrowseColumn
     {
         $this->operator = $operator;
         return $this;

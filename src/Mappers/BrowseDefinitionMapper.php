@@ -2,6 +2,7 @@
 
 namespace PhpTwinfield\Mappers;
 
+use PhpTwinfield\Enums\BrowseColumnOperator;
 use PhpTwinfield\Exception;
 use PhpTwinfield\Office;
 use PhpTwinfield\Response\Response;
@@ -27,11 +28,8 @@ class BrowseDefinitionMapper extends BaseMapper
         $document = $response->getResponseDocument();
         $browseDefinitionElement = $document->documentElement;
 
-        $office = new Office();
-        $office->setCode(self::getField($browseDefinitionElement, 'office'));
-
         $browseDefinition
-            ->setOffice($office)
+            ->setOffice(Office::fromCode(self::getField($browseDefinitionElement, 'office')))
             ->setCode(self::getField($browseDefinitionElement, 'code'))
             ->setName(self::getField($browseDefinitionElement, 'name'))
             ->setShortName(self::getField($browseDefinitionElement, 'shortname'))
@@ -44,7 +42,7 @@ class BrowseDefinitionMapper extends BaseMapper
                 ->setField(self::getField($columnElement, 'field'))
                 ->setVisible(Util::parseBoolean(self::getField($columnElement, 'visible')))
                 ->setAsk(Util::parseBoolean(self::getField($columnElement, 'ask')))
-                ->setOperator(self::getField($columnElement, 'operator'));
+                ->setOperator(new BrowseColumnOperator(self::getField($columnElement, 'operator')));
 
             $label = self::getField($columnElement, 'label');
             if (!empty($label)) {

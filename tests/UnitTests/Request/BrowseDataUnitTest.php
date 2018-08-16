@@ -4,6 +4,8 @@ namespace PhpTwinfield\UnitTests;
 
 use PhpTwinfield\BrowseColumn;
 use PhpTwinfield\BrowseSortField;
+use PhpTwinfield\Enums\BrowseColumnOperator;
+use PhpTwinfield\Enums\Order;
 use PhpTwinfield\Request\BrowseData;
 use PHPUnit\Framework\TestCase;
 
@@ -16,11 +18,11 @@ class BrowseDataUnitTest extends TestCase
             ->setLabel('Period')
             ->setVisible(true)
             ->setAsk(true)
-            ->setOperator('between')
+            ->setOperator(BrowseColumnOperator::BETWEEN())
             ->setFrom('2013/01')
             ->setTo('2013/12');
 
-        $sortFields[] = (new BrowseSortField('fin.trs.head.yearperiod', 'descending'));
+        $sortFields[] = (new BrowseSortField('fin.trs.head.yearperiod', Order::DESCENDING()));
 
         $browseData = new BrowseData('000', $columns, $sortFields);
 
@@ -60,7 +62,7 @@ class BrowseDataUnitTest extends TestCase
             ->setLabel('Period')
             ->setVisible(true)
             ->setAsk(true)
-            ->setOperator('between')
+            ->setOperator(BrowseColumnOperator::BETWEEN())
             ->setFrom('2013/01')
             ->setTo('2013/12');
 

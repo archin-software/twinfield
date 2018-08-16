@@ -5,6 +5,7 @@ namespace PhpTwinfield\IntegrationTests;
 use PhpTwinfield\ApiConnectors\BrowseDataApiConnector;
 use PhpTwinfield\BrowseColumn;
 use PhpTwinfield\BrowseDefinition;
+use PhpTwinfield\Enums\BrowseColumnOperator;
 use PhpTwinfield\Response\Response;
 
 class BrowseDataApiConnectorTest extends BaseIntegrationTest
@@ -48,7 +49,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('Period', $column1->getLabel());
         $this->assertEquals(true, $column1->isVisible());
         $this->assertEquals(true, $column1->isAsk());
-        $this->assertEquals('between', $column1->getOperator());
+        $this->assertEquals('between', $column1->getOperator()->getValue());
         $this->assertEquals('$DEFAULT$', $column1->getFrom());
         $this->assertEquals('$DEFAULT$', $column1->getTo());
 
@@ -58,7 +59,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('Transaction type', $column2->getLabel());
         $this->assertEquals(true, $column2->isVisible());
         $this->assertEquals(true, $column2->isAsk());
-        $this->assertEquals('equal', $column2->getOperator());
+        $this->assertEquals('equal', $column2->getOperator()->getValue());
         $this->assertEquals(null, $column2->getFrom());
         $this->assertEquals(null, $column2->getTo());
 
@@ -68,7 +69,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('Name', $column3->getLabel());
         $this->assertEquals(true, $column3->isVisible());
         $this->assertEquals(false, $column3->isAsk());
-        $this->assertEquals('none', $column3->getOperator());
+        $this->assertEquals('none', $column3->getOperator()->getValue());
         $this->assertEquals(null, $column3->getFrom());
         $this->assertEquals(null, $column3->getTo());
 
@@ -78,7 +79,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('Trans. no.', $column4->getLabel());
         $this->assertEquals(true, $column4->isVisible());
         $this->assertEquals(true, $column4->isAsk());
-        $this->assertEquals('between', $column4->getOperator());
+        $this->assertEquals('between', $column4->getOperator()->getValue());
         $this->assertEquals(null, $column4->getFrom());
         $this->assertEquals(null, $column4->getTo());
 
@@ -88,7 +89,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('Status', $column5->getLabel());
         $this->assertEquals(true, $column5->isVisible());
         $this->assertEquals(true, $column5->isAsk());
-        $this->assertEquals('equal', $column5->getOperator());
+        $this->assertEquals('equal', $column5->getOperator()->getValue());
         $this->assertEquals('normal', $column5->getFrom());
         $this->assertEquals(null, $column5->getTo());
 
@@ -98,7 +99,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('General ledger', $column6->getLabel());
         $this->assertEquals(true, $column6->isVisible());
         $this->assertEquals(true, $column6->isAsk());
-        $this->assertEquals('between', $column6->getOperator());
+        $this->assertEquals('between', $column6->getOperator()->getValue());
         $this->assertEquals(null, $column6->getFrom());
         $this->assertEquals(null, $column6->getTo());
 
@@ -108,7 +109,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
         $this->assertEquals('Name', $column7->getLabel());
         $this->assertEquals(true, $column7->isVisible());
         $this->assertEquals(false, $column7->isAsk());
-        $this->assertEquals('none', $column7->getOperator());
+        $this->assertEquals('none', $column7->getOperator()->getValue());
         $this->assertEquals(null, $column7->getFrom());
         $this->assertEquals(null, $column7->getTo());
     }
@@ -190,7 +191,7 @@ class BrowseDataApiConnectorTest extends BaseIntegrationTest
             ->setLabel('Period')
             ->setVisible(true)
             ->setAsk(true)
-            ->setOperator('between')
+            ->setOperator(BrowseColumnOperator::BETWEEN())
             ->setFrom('2013/01')
             ->setTo('2013/12');
 

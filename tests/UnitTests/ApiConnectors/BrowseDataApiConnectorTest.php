@@ -5,6 +5,7 @@ namespace PhpTwinfield\UnitTests;
 use PhpTwinfield\ApiConnectors\BrowseDataApiConnector;
 use PhpTwinfield\BrowseColumn;
 use PhpTwinfield\BrowseSortField;
+use PhpTwinfield\Enums\BrowseColumnOperator;
 use PhpTwinfield\Secure\AuthenticatedConnection;
 use PhpTwinfield\Services\ProcessXmlService;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +44,7 @@ class BrowseDataApiConnectorTest extends TestCase
     public function testFailureResponseForGetBrowseDataWithoutColumns()
     {
         $this->expectException('InvalidArgumentException');
-        $this->expectExceptionMessage('Expected an array to contain 1 elements. Got: 0.');
+        $this->expectExceptionMessage('Expected an array to contain at least 1 elements. Got: 0');
 
         $this->apiConnector->getBrowseData('001', []);
     }
@@ -66,7 +67,7 @@ class BrowseDataApiConnectorTest extends TestCase
             ->setLabel('Period')
             ->setVisible(true)
             ->setAsk(true)
-            ->setOperator('between')
+            ->setOperator(BrowseColumnOperator::BETWEEN())
             ->setFrom('2013/01')
             ->setTo('2013/12');
 
