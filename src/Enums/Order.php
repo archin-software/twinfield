@@ -5,8 +5,8 @@ namespace PhpTwinfield\Enums;
 use MyCLabs\Enum\Enum;
 
 /**
- * @method static BrowseColumnOperator ASCENDING()
- * @method static BrowseColumnOperator DESCENDING()
+ * @method static Order ASCENDING()
+ * @method static Order DESCENDING()
  */
 class Order extends Enum
 {
